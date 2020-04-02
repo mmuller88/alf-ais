@@ -3,3 +3,6 @@ node_modules
 # volumes
 data
 logs
+
+alfresco/modules/amps/alfresco-ai-repo-*.amp
+share/modules/amps/alfresco-ai-share-*.amp

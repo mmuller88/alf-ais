@@ -1,0 +1,292 @@
+---
+# This yaml file is parsed by the org.alfresco.transform.router.routes.TransformerRoutes class
+
+# Custom transformations go below here
+
+routes:
+  # Images -> AWS (Rekognition)
+  - sourceMediaType: image/png
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    engine: AWS_AI
+
+  - sourceMediaType: image/jpeg
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    engine: AWS_AI
+
+  # Text -> AWS (Comprehend)
+  - sourceMediaType: text/plain
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    engine: AWS_AI
+
+  - sourceMediaType: text/plain
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    engine: AWS_AI
+
+  - sourceMediaType: application/vnd.alfresco.ai.textract.v1+plain
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    engine: AWS_AI
+
+  # Images -> AWS (Textract)
+  - sourceMediaType: image/png
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    engine: AWS_AI
+
+  - sourceMediaType: image/jpeg
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    engine: AWS_AI
+
+  - sourceMediaType: image/png
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+plain
+    engine: AWS_AI
+
+  - sourceMediaType: image/jpeg
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+plain
+    engine: AWS_AI
+
+  - sourceMediaType: application/vnd.alfresco.ai.textract.v1+plain
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    engine: AWS_AI
+
+  - sourceMediaType: application/pdf
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+plain
+    engine: AWS_AI
+
+  - sourceMediaType: application/pdf
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    engine: AWS_AI
+
+  # Complex transformations generating an AI Labels rendition (Rekognition)
+  - sourceMediaType: image/gif
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    steps:
+      - image/jpeg
+
+  - sourceMediaType: image/tiff
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    steps:
+      - image/gif
+      - image/jpeg
+
+  - sourceMediaType: application/pdf
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    steps:
+      - image/png
+
+  - sourceMediaType: application/msword
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    steps:
+      - application/pdf
+      - image/png
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    steps:
+      - application/pdf
+      - image/png
+
+  - sourceMediaType: application/vnd.ms-excel
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    steps:
+      - application/pdf
+      - image/png
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    steps:
+      - application/pdf
+      - image/png
+
+  - sourceMediaType: application/vnd.ms-powerpoint
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    steps:
+      - application/pdf
+      - image/png
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.presentationml.presentation
+    targetMediaType: application/vnd.alfresco.ai.labels.v1+json
+    steps:
+      - application/pdf
+      - image/png
+
+  # Complex transformations generating an AI Features rendition (Comprehend - Entity Recognition)
+  - sourceMediaType: application/pdf
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - application/vnd.alfresco.ai.textract.v1+plain
+
+  - sourceMediaType: application/msword
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.ms-excel
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.ms-powerpoint
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.presentationml.presentation
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.ms-outlook
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - text/plain
+
+  # Complex transformations generating an AI Features rendition (Comprehend - Classification)
+  - sourceMediaType: application/pdf
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/msword
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.ms-excel
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.ms-powerpoint
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.presentationml.presentation
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - text/plain
+
+  - sourceMediaType: application/vnd.ms-outlook
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - text/plain
+
+  # Complex transformations generating an AI Textract rendition
+  - sourceMediaType: image/gif
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+plain
+    steps:
+      - image/jpeg
+
+  - sourceMediaType: image/tiff
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+plain
+    steps:
+      - image/gif
+      - image/jpeg
+
+  - sourceMediaType: image/gif
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    steps:
+      - image/jpeg
+
+  - sourceMediaType: image/tiff
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    steps:
+      - image/gif
+      - image/jpeg
+
+  - sourceMediaType: application/msword
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    steps:
+      - application/pdf
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    steps:
+      - application/pdf
+
+  - sourceMediaType: application/vnd.ms-excel
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    steps:
+      - application/pdf
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    steps:
+      - application/pdf
+
+  - sourceMediaType: application/vnd.ms-powerpoint
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    steps:
+      - application/pdf
+
+  - sourceMediaType: application/vnd.openxmlformats-officedocument.presentationml.presentation
+    targetMediaType: application/vnd.alfresco.ai.textract.v1+json
+    steps:
+      - application/pdf
+
+  # Complex transformations Images -> AWS (Textract) -> AWS (Comprehend Entity Recognition)
+  - sourceMediaType: image/png
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - application/vnd.alfresco.ai.textract.v1+plain
+
+  - sourceMediaType: image/jpeg
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - application/vnd.alfresco.ai.textract.v1+plain
+
+  - sourceMediaType: image/tiff
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - image/gif
+      - image/jpeg
+      - application/vnd.alfresco.ai.textract.v1+plain
+
+  - sourceMediaType: image/gif
+    targetMediaType: application/vnd.alfresco.ai.features.v1+json
+    steps:
+      - image/jpeg
+      - application/vnd.alfresco.ai.textract.v1+plain
+
+  # Complex transformations Images -> AWS (Textract) -> AWS (Comprehend Classification)
+  - sourceMediaType: image/png
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - application/vnd.alfresco.ai.textract.v1+plain
+
+  - sourceMediaType: image/jpeg
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - application/vnd.alfresco.ai.textract.v1+plain
+
+  - sourceMediaType: image/tiff
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - image/gif
+      - image/jpeg
+      - application/vnd.alfresco.ai.textract.v1+plain
+
+  - sourceMediaType: image/gif
+    targetMediaType: application/vnd.alfresco.ai.classifiers.v1+json
+    steps:
+      - image/jpeg
+      - application/vnd.alfresco.ai.textract.v1+plain

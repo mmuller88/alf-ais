@@ -1,5 +1,5 @@
 ARG SHARE_TAG
-FROM alfresco/alfresco-share:${SHARE_TAG}
+FROM alfresco/alfresco-share:6.2.0-RC2
 
 ARG TOMCAT_DIR=/usr/local/tomcat
 
